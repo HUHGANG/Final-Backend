@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.ssafyhome.mapper.MemberMapper">
+
+    <resultMap type="com.ssafy.ssafyhome.domain.entity.Member" id="member">
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <insert id="insertMember" parameterType="com.ssafy.ssafyhome.domain.entity.Member">
+        INSERT INTO members(name, password, email, role)
+        VALUES (#{name}, #{password}, #{email}, #{role})
+    </insert>
+
+    <select id="selectById" parameterType="int" resultMap="member">
+        SELECT *
+        from members
+        where id = #{id}
+    </select>
+
+    <select id="selectByEmail" parameterType="String" resultMap="member">
+        SELECT *
+        from members
+        where email = #{email}
+    </select>
+
+    <select id="isExist" resultType="boolean">
+        SELECT EXISTS (SELECT id FROM members WHERE email = #{email})
+    </select>
+
+    <!--    <insert id="insertUser" parameterType="com.flab.makedel.dto.UserDTO">-->
+    <!--        INSERT INTO USER(id, password, email, name, phone, address, level)-->
+    <!--        VALUES(#{id}, #{password}, #{email}, #{name}, #{phone}, #{address}, #{level})-->
+    <!--    </insert>-->
+
+    <!--    <select id="selectUserInfo" resultType="com.flab.makedel.dto.UserInfoDTO">-->
+    <!--        SELECT id, name, phone, address-->
+    <!--        FROM USER WHERE id = #{id}-->
+    <!--    </select>-->
+
+    <!--    <select id="selectUserById" resultType="com.flab.makedel.dto.UserDTO">-->
+    <!--        SELECT id, password, email, name, phone, address, level, created_at, updated_at-->
+    <!--        FROM USER WHERE id = #{id}-->
+    <!--    </select>-->
+
+    <!--    <delete id="deleteUser" parameterType="String">-->
+    <!--        DELETE FROM USER WHERE id = #{id}-->
+    <!--    </delete>-->
+
+    <!--    <update id="updateUserPassword" parameterType="String">-->
+    <!--        UPDATE USER SET password = #{newPassword} , updated_at = NOW()-->
+    <!--        WHERE id = #{id}-->
+    <!--    </update>-->
+
+</mapper>
