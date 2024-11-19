@@ -1,9 +1,6 @@
 package com.ssafy.ssafyhome.controller;
 
-import com.ssafy.ssafyhome.domain.dto.LoginReqDto;
-import com.ssafy.ssafyhome.domain.dto.LoginResDto;
-import com.ssafy.ssafyhome.domain.dto.SignupReqDto;
-import com.ssafy.ssafyhome.domain.dto.VerifyEmailReqDto;
+import com.ssafy.ssafyhome.domain.dto.*;
 import com.ssafy.ssafyhome.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,9 +25,8 @@ public class MemberController {
 
   @PostMapping("/send-verification")
   @Operation(summary = "인증번호 전송", description = "이메일 확인을 위한 인증번호 전송")
-  public ResponseEntity<?> sendVerificationEmail(String email) {
-    memberService.sendVerificationEmail(email);
-    return ResponseEntity.ok().build();
+  public void sendVerificationEmail(@RequestBody SendVerificationReqDto dto) {
+    memberService.sendVerificationEmail(dto.getEmail());
   }
 
   @PostMapping("/verify-email")
