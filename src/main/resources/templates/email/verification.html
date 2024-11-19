@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .code-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .verification-code {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>이메일 인증</h2>
+    <p>안녕하세요. 아래의 인증 코드를 입력해주세요:</p>
+    <div class="code-box">
+        <span class="verification-code">${verificationCode}</span>
+    </div>
+    <p>감사합니다.</p>
+</div>
+</body>
+</html>

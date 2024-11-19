@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.ssafyhome.mapper.MemberMapper">
+
+    <resultMap type="com.ssafy.ssafyhome.domain.entity.Member" id="member">
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <insert id="insertMember" parameterType="com.ssafy.ssafyhome.domain.entity.Member">
+        INSERT INTO members(name, password, email, role)
+        VALUES (#{name}, #{password}, #{email}, #{role})
+    </insert>
+
+    <select id="selectById" parameterType="int" resultMap="member">
+        SELECT *
+        from members
+        where id = #{id}
+    </select>
+
+    <select id="selectByEmail" parameterType="String" resultMap="member">
+        SELECT *
+        from members
+        where email = #{email}
+    </select>
+
+    <select id="isExist" resultType="boolean">
+        SELECT EXISTS (SELECT id FROM members WHERE email = #{email})
+    </select>
+</mapper>
