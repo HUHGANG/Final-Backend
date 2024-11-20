@@ -3,6 +3,7 @@ package com.ssafy.ssafyhome.controller;
 import com.ssafy.ssafyhome.annotation.Login;
 import com.ssafy.ssafyhome.annotation.RoleCheck;
 import com.ssafy.ssafyhome.domain.dto.NoticeReqDto;
+import com.ssafy.ssafyhome.domain.dto.NoticeListResDto;
 import com.ssafy.ssafyhome.domain.entity.Member;
 import com.ssafy.ssafyhome.domain.entity.Notice;
 import com.ssafy.ssafyhome.domain.enums.Role;
@@ -20,6 +21,19 @@ import org.springframework.web.bind.annotation.*;
 public class NoticeController {
 
   private final NoticeService noticeService;
+
+  @GetMapping()
+  @Operation(summary = "공지사항 리스트 조회", description = "")
+  public NoticeListResDto getNoticeList(@RequestParam(defaultValue = "1") int page,
+                                        @RequestParam(defaultValue = "10") int size) {
+    return noticeService.selectNoticeList(page, size);
+  }
+
+  @GetMapping("/{id}")
+  @Operation(summary = "공지사항 상세 조회", description = "")
+  public Notice selectNoticeDetail(@PathVariable("id") int id) {
+    return noticeService.selectNoticeDetail(id);
+  }
 
   @RoleCheck(Role.ADMIN)
   @PostMapping()
