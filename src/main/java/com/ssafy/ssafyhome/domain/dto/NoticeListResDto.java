@@ -10,8 +10,9 @@ import java.util.List;
 @Builder
 public class NoticeListResDto {
 
-  private int page;
-  private int total;
+  private int currentPage;
+  private int totalPage;
+  private int totalNotice;
   private List<Notice> noticeList;
 
 }

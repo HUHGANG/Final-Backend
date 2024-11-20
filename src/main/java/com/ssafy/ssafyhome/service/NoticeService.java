@@ -22,11 +22,12 @@ public class NoticeService {
     int offset = (page - 1) * size;
 
     List<Notice> noticeList = noticeMapper.selectNoticeList(offset, size);
-    System.out.println(noticeList);
+    int totalNotice = noticeMapper.countTotalNotice();
 
     return NoticeListResDto.builder()
-            .page(page)
-            .total(noticeList.size())
+            .currentPage(page)
+            .totalNotice(totalNotice)
+            .totalPage((totalNotice + size - 1) / size)
             .noticeList(noticeList)
             .build();
   }

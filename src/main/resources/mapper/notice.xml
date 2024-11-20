@@ -14,6 +14,10 @@
         <result property="updatedAt" column="updated_at" />
     </resultMap>
 
+    <select id="countTotalNotice">
+        select count(*) from notices
+    </select>
+
     <select id="selectNoticeList" resultMap="noticeResultMap">
         select n.id,
                title,

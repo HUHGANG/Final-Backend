@@ -9,6 +9,8 @@ import java.util.List;
 @Mapper
 public interface NoticeMapper {
 
+  int countTotalNotice();
+
   List<Notice> selectNoticeList(@Param("offset") int offset,
                                 @Param("size") int size);
 
