@@ -15,4 +15,6 @@ public interface NoticeMapper {
   Notice selectNoticeDetail(@Param("id") int id);
 
   void insertNotice(@Param("notice") Notice notice);
+
+  void deleteNotice(@Param("id") int id);
 }

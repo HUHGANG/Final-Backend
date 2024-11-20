@@ -3,6 +3,7 @@ package com.ssafy.ssafyhome.service;
 import com.ssafy.ssafyhome.domain.dto.NoticeListResDto;
 import com.ssafy.ssafyhome.domain.entity.Member;
 import com.ssafy.ssafyhome.domain.entity.Notice;
+import com.ssafy.ssafyhome.exception.BadRequestException;
 import com.ssafy.ssafyhome.mapper.NoticeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,15 @@ public class NoticeService {
     noticeMapper.insertNotice(notice);
 
     return notice;
+  }
+
+  public void deleteNotice(int id) {
+    Notice notice = noticeMapper.selectNoticeDetail(id);
+
+    if(notice == null) {
+      throw new BadRequestException("비정상적인 접근");
+    }
+
+    noticeMapper.deleteNotice(id);
   }
 }

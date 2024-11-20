@@ -45,4 +45,9 @@
         insert into notices (title, content, author_id)
         values (#{notice.title}, #{notice.content}, #{notice.authorId})
     </insert>
+
+    <delete id="deleteNotice">
+        delete from notices where id = #{id}
+    </delete>
+
 </mapper>

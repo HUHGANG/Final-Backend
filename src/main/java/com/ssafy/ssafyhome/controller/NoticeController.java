@@ -41,4 +41,11 @@ public class NoticeController {
   public Notice insertNotice(@Login Member member, @RequestBody NoticeReqDto dto) {
     return noticeService.insertNotice(member, dto.getTitle(), dto.getContent());
   }
+
+  @RoleCheck(Role.ADMIN)
+  @DeleteMapping("/{id}")
+  @Operation(summary = "공지사항 삭제", description = "")
+  public void deleteNotice(@PathVariable("id") int id) {
+    noticeService.deleteNotice(id);
+  }
 }
