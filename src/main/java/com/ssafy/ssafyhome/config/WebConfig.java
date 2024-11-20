@@ -2,6 +2,7 @@ package com.ssafy.ssafyhome.config;
 
 import com.ssafy.ssafyhome.annotation.argumentResolver.LoginUserArgumentResolver;
 import com.ssafy.ssafyhome.intercepter.LoginCheckInterceptor;
+import com.ssafy.ssafyhome.intercepter.RoleCheckInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -16,11 +17,15 @@ import java.util.List;
 public class WebConfig implements WebMvcConfigurer {
 
     private final LoginCheckInterceptor loginCheckInterceptor;
+    private final RoleCheckInterceptor roleCheckInterceptor;
     private final LoginUserArgumentResolver loginUserArgumentResolver;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginCheckInterceptor)
+                .addPathPatterns("/**");
+
+        registry.addInterceptor(roleCheckInterceptor)
                 .addPathPatterns("/**");
     }
 

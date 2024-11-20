@@ -21,6 +21,12 @@ public class ControllerExceptionHandler {
     return new ErrorMessage(ex.getMessage());
   }
 
+  @ResponseStatus(HttpStatus.FORBIDDEN)
+  @ExceptionHandler(ForbiddenException.class)
+  public ErrorMessage forbiddenHandler(Exception ex, WebRequest request) {
+    return new ErrorMessage(ex.getMessage());
+  }
+
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   @ExceptionHandler(Exception.class)
   public ErrorMessage serverErrorHandler(Exception ex, WebRequest request) {
