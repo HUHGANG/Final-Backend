@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.ssafyhome.mapper.NoticeMapper">
+
+    <resultMap id="noticeResultMap" type="Notice">
+        <id property="id" column="id" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="authorId" column="author_id" />
+        <result property="authorName" column="name" />
+        <result property="createdAt" column="created_at" />
+        <result property="updatedAt" column="updated_at" />
+    </resultMap>
+
+    <select id="countTotalNotice">
+        select count(*) from notices
+    </select>
+
+    <select id="selectNoticeList" resultMap="noticeResultMap">
+        select n.id,
+               title,
+               content,
+               n.created_at,
+               n.updated_at,
+               author_id,
+               name
+        from notices n
+        left join members m on m.id = n.author_id
+        order by n.created_at desc
+        limit #{offset}, #{size}
+    </select>
+
+    <select id="selectNoticeDetail" resultMap="noticeResultMap">
+        select n.id,
+               title,
+               content,
+               n.created_at,
+               n.updated_at,
+               author_id,
+               name
+        from notices n
+        left join members m on m.id = n.author_id
+        where n.id = #{id}
+    </select>
+
+    <insert id="insertNotice" useGeneratedKeys="true" keyProperty="id" >
+        insert into notices (title, content, author_id)
+        values (#{notice.title}, #{notice.content}, #{notice.authorId})
+    </insert>
+
+    <update id="updateNotice">
+        update notices
+        set title   = #{notice.title},
+            content = #{notice.content}
+        where id = #{notice.id};
+    </update>
+
+    <delete id="deleteNotice">
+        delete from notices where id = #{id}
+    </delete>
+
+</mapper>

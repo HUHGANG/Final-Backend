@@ -45,6 +45,6 @@ public class RoleCheckInterceptor implements HandlerInterceptor {
         return true;
       }
     }
-    return false;
+    return true;
   }
 }

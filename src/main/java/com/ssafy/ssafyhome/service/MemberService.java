@@ -64,11 +64,12 @@ public class MemberService {
 
     String hashPassword = BCrypt.hashpw(dto.getPassword(), BCrypt.gensalt());
 
-    Member member = new Member();
-    member.setEmail(dto.getEmail());
-    member.setPassword(hashPassword);
-    member.setName(dto.getName());
-    member.setRole(Role.USER);
+    Member member = Member.builder()
+            .email(dto.getEmail())
+            .password(hashPassword)
+            .name(dto.getName())
+            .role(Role.USER)
+            .build();
 
     memberMapper.insertMember(member);
   }
