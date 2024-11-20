@@ -50,6 +50,16 @@ public class NoticeService {
     return notice;
   }
 
+  public Notice updateNotice(Member member, int id, String title, String content) {
+    Notice notice = noticeMapper.selectNoticeDetail(id);
+    notice.setTitle(title);
+    notice.setContent(content);
+
+    noticeMapper.updateNotice(notice);
+
+    return notice;
+  }
+
   public void deleteNotice(int id) {
     Notice notice = noticeMapper.selectNoticeDetail(id);
 

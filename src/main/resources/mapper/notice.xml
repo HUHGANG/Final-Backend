@@ -46,6 +46,13 @@
         values (#{notice.title}, #{notice.content}, #{notice.authorId})
     </insert>
 
+    <update id="updateNotice">
+        update notices
+        set title   = #{notice.title},
+            content = #{notice.content}
+        where id = #{notice.id};
+    </update>
+
     <delete id="deleteNotice">
         delete from notices where id = #{id}
     </delete>

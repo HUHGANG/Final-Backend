@@ -43,6 +43,13 @@ public class NoticeController {
   }
 
   @RoleCheck(Role.ADMIN)
+  @PatchMapping("/{id}")
+  @Operation(summary = "공지사항 수정", description = "")
+  public Notice updateNotice(@Login Member member, @PathVariable("id") int id, @RequestBody NoticeReqDto dto) {
+    return noticeService.updateNotice(member, id, dto.getTitle(), dto.getContent());
+  }
+
+  @RoleCheck(Role.ADMIN)
   @DeleteMapping("/{id}")
   @Operation(summary = "공지사항 삭제", description = "")
   public void deleteNotice(@PathVariable("id") int id) {
