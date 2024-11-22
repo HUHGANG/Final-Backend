@@ -1,5 +1,6 @@
 package com.ssafy.ssafyhome.service;
 
+import com.ssafy.ssafyhome.domain.dto.HomeListResDto;
 import com.ssafy.ssafyhome.domain.entity.Dabang;
 import com.ssafy.ssafyhome.mapper.HomeMapper;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,17 @@ public class HomeService {
 
   private final HomeMapper homeMapper;
 
-  public List<Dabang> selectDabangHomeList(float neLat, float neLng, float swLat, float swLng) {
-    return homeMapper.selectDabangHomeList(neLat, neLng, swLat, swLng);
+  public HomeListResDto selectDabangHomeList(float neLat, float neLng, float swLat, float swLng, int page, int size) {
+    int offset = (page - 1) * size;
+
+    List<Dabang> homeList = homeMapper.selectDabangHomeList(neLat, neLng, swLat, swLng, offset, size);
+    int totalCnt = homeMapper.countTotalHome(neLat, neLng, swLat, swLng);
+
+    return HomeListResDto.builder()
+            .currentPage(page)
+            .totalPage((totalCnt + size - 1) / size)
+            .totalCnt(totalCnt)
+            .homeList(homeList)
+            .build();
   }
 }

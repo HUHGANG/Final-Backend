@@ -1,6 +1,6 @@
 package com.ssafy.ssafyhome.controller;
 
-import com.ssafy.ssafyhome.domain.entity.Dabang;
+import com.ssafy.ssafyhome.domain.dto.HomeListResDto;
 import com.ssafy.ssafyhome.service.HomeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/home")
@@ -22,10 +20,12 @@ public class HomeController {
 
   @GetMapping("/dabang")
   @Operation(summary = "다방 매물 리스트 조회", description = "")
-  public List<Dabang> selectDabangHomeList(@RequestParam(defaultValue = "35.2") float neLat,
-                                           @RequestParam(defaultValue = "126.84") float neLng,
-                                           @RequestParam(defaultValue = "35.18") float swLat,
-                                           @RequestParam(defaultValue = "126.8") float swLng) {
-    return homeService.selectDabangHomeList(neLat, neLng, swLat, swLng);
+  public HomeListResDto selectDabangHomeList(@RequestParam(defaultValue = "35.2") float neLat,
+                                             @RequestParam(defaultValue = "126.84") float neLng,
+                                             @RequestParam(defaultValue = "35.18") float swLat,
+                                             @RequestParam(defaultValue = "126.8") float swLng,
+                                             @RequestParam(defaultValue = "1") int page,
+                                             @RequestParam(defaultValue = "20") int size) {
+    return homeService.selectDabangHomeList(neLat, neLng, swLat, swLng, page, size);
   }
 }

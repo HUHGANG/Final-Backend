@@ -70,7 +70,15 @@
                  join b_code b on d.b_code = b.b_code
         where (lat between #{swLat} and #{neLat})
           and (lng between #{swLng} and #{neLng})
+        order by d.resisted_date desc
+        limit #{offset}, #{size}
     </select>
 
-
+    <select id="countTotalHome">
+        select count(*)
+        from dabang d
+                 join b_code b on d.b_code = b.b_code
+        where (lat between #{swLat} and #{neLat})
+          and (lng between #{swLng} and #{neLng})
+    </select>
 </mapper>
