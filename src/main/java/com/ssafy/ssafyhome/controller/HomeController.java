@@ -22,10 +22,10 @@ public class HomeController {
 
   @GetMapping("/dabang")
   @Operation(summary = "다방 매물 리스트 조회", description = "")
-  public List<Dabang> selectDabangHomeList(@RequestParam(defaultValue = "35.2") float wnLat,
-                                           @RequestParam(defaultValue = "126.8") float wnLng,
-                                           @RequestParam(defaultValue = "35.18") float esLat,
-                                           @RequestParam(defaultValue = "126.84") float esLng) {
-    return homeService.selectDabangHomeList(wnLat, wnLng, esLat, esLng);
+  public List<Dabang> selectDabangHomeList(@RequestParam(defaultValue = "35.2") float neLat,
+                                           @RequestParam(defaultValue = "126.84") float neLng,
+                                           @RequestParam(defaultValue = "35.18") float swLat,
+                                           @RequestParam(defaultValue = "126.8") float swLng) {
+    return homeService.selectDabangHomeList(neLat, neLng, swLat, swLng);
   }
 }

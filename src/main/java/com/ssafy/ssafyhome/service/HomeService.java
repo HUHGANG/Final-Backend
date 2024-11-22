@@ -13,7 +13,7 @@ public class HomeService {
 
   private final HomeMapper homeMapper;
 
-  public List<Dabang> selectDabangHomeList(float wnLat, float wnLng, float esLat, float esLng) {
-    return homeMapper.selectDabangHomeList(wnLat, wnLng, esLat, esLng);
+  public List<Dabang> selectDabangHomeList(float neLat, float neLng, float swLat, float swLng) {
+    return homeMapper.selectDabangHomeList(neLat, neLng, swLat, swLng);
   }
 }

@@ -68,8 +68,8 @@
                b.dong             AS dong
         from dabang d
                  join b_code b on d.b_code = b.b_code
-        where (lat between #{esLat} and #{wnLat})
-          and (lng between #{wnLng} and #{esLng})
+        where (lat between #{swLat} and #{neLat})
+          and (lng between #{swLng} and #{neLng})
     </select>
 
 
