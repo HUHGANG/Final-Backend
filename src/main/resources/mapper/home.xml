@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.ssafyhome.mapper.HomeMapper">
+
+    <resultMap id="DabangResultMap" type="Dabang">
+        <id property="id" column="id" />
+        <result property="detailId" column="detailId" />
+        <result property="linkUrl" column="linkUrl" />
+        <result property="img" column="img" />
+        <result property="address" column="address" />
+        <result property="lat" column="lat" />
+        <result property="lng" column="lng" />
+        <result property="rentType" column="rentType" />
+        <result property="deposit" column="deposit" />
+        <result property="monthlyRent" column="monthlyRent" />
+        <result property="title" column="title" />
+        <result property="roomType" column="roomType" />
+        <result property="exclusiveArea" column="exclusiveArea" />
+        <result property="floor" column="floor" />
+        <result property="maintenanceCost" column="maintenanceCost" />
+        <result property="roomCnt" column="roomCnt" />
+        <result property="bathroomCnt" column="bathroomCnt" />
+        <result property="direction" column="direction" />
+        <result property="availableFrom" column="availableFrom" />
+        <result property="homeType" column="homeType" />
+        <result property="approvalDate" column="approvalDate" />
+        <result property="resistedDate" column="resistedDate" />
+        <result property="createdAt" column="createdAt" />
+        <result property="updatedAt" column="updatedAt" />
+        <association property="bCode" javaType="BCode">
+            <result property="bCode" column="bCode" />
+            <result property="sido" column="sido" />
+            <result property="gugun" column="gugun" />
+            <result property="dong" column="dong" />
+        </association>
+    </resultMap>
+
+    <select id="selectDabangHomeList" resultMap="DabangResultMap">
+        select d.id               AS id,
+               d.detail_id        AS detailId,
+               d.link_url         AS linkUrl,
+               d.img              AS img,
+               d.address          AS address,
+               d.lat              AS lat,
+               d.lng              AS lng,
+               d.rent_type        AS rentType,
+               d.deposit          AS deposit,
+               d.monthly_rent     AS monthlyRent,
+               d.title            AS title,
+               d.room_type        AS roomType,
+               d.exclusive_area   AS exclusiveArea,
+               d.floor            AS floor,
+               d.maintenance_cost AS maintenanceCost,
+               d.room_cnt         AS roomCnt,
+               d.bathroom_cnt     AS bathroomCnt,
+               d.direction        AS direction,
+               d.available_from   AS availableFrom,
+               d.home_type        AS homeType,
+               d.approval_date    AS approvalDate,
+               d.resisted_date    AS resistedDate,
+               d.created_at       AS createdAt,
+               d.updated_at       AS updatedAt,
+               b.b_code           AS bCode,
+               b.sido             AS sido,
+               b.gugun            AS gugun,
+               b.dong             AS dong
+        from dabang d
+                 join b_code b on d.b_code = b.b_code
+        where (lat between #{esLat} and #{wnLat})
+          and (lng between #{wnLng} and #{esLng})
+    </select>
+
+
+</mapper>

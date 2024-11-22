@@ -24,7 +24,7 @@ public class NoticeController {
 
   @GetMapping()
   @Operation(summary = "공지사항 리스트 조회", description = "")
-  public NoticeListResDto getNoticeList(@RequestParam(defaultValue = "1") int page,
+  public NoticeListResDto selectNoticeList(@RequestParam(defaultValue = "1") int page,
                                         @RequestParam(defaultValue = "10") int size) {
     return noticeService.selectNoticeList(page, size);
   }
