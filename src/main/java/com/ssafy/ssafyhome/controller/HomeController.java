@@ -1,12 +1,19 @@
 package com.ssafy.ssafyhome.controller;
 
+import com.ssafy.ssafyhome.annotation.Login;
+import com.ssafy.ssafyhome.annotation.RoleCheck;
 import com.ssafy.ssafyhome.domain.dto.HomeBCodeResDto;
 import com.ssafy.ssafyhome.domain.dto.HomeListResDto;
+import com.ssafy.ssafyhome.domain.dto.HomeSsafyReqDto;
+import com.ssafy.ssafyhome.domain.entity.Member;
+import com.ssafy.ssafyhome.domain.entity.Ssafy;
+import com.ssafy.ssafyhome.domain.enums.Role;
 import com.ssafy.ssafyhome.service.HomeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -34,5 +41,14 @@ public class HomeController {
                                              @RequestParam(defaultValue = "1") int page,
                                              @RequestParam(defaultValue = "20") int size) {
     return homeService.selectDabangHomeList(bCode, neLat, neLng, swLat, swLng, page, size);
+  }
+
+  @RoleCheck({Role.ADMIN, Role.USER})
+  @PostMapping("/ssafy")
+  @Operation(summary = "싸피생 매물 등록", description = "")
+  public Ssafy insertSsafyHome(@Login Member member,
+                               @RequestPart(name = "homeReq") HomeSsafyReqDto dto,
+                               @RequestPart(name = "images") List<MultipartFile> multipartFiles) {
+    return homeService.insertSsafyHome(member, dto, multipartFiles);
   }
 }

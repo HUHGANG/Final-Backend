@@ -97,4 +97,23 @@
             and b.b_code = #{bCode}
         </if>
     </select>
+
+    <insert id="insertSsafyHome" useGeneratedKeys="true" keyProperty="id">
+        insert into ssafy (member_id, address, lat, lng, b_code, rent_type, deposit, monthly_rent, maintenance_cost,
+                           title, content, room_type, exclusive_area, floor, room_cnt, bathroom_cnt, direction,
+                           expiration_date, available_from, home_type, approval_date, resisted_date)
+            values (#{ssafy.member.id}, #{ssafy.address}, #{ssafy.lat},#{ssafy.lng},#{ssafy.bCode.bCode},#{ssafy.rentType},#{ssafy.deposit},
+                    #{ssafy.monthlyRent},#{ssafy.maintenanceCost},#{ssafy.title},#{ssafy.content},#{ssafy.roomType},#{ssafy.exclusiveArea},
+                    #{ssafy.floor},#{ssafy.roomCnt},#{ssafy.bathroomCnt},#{ssafy.direction},#{ssafy.expirationDate},#{ssafy.availableFrom},
+                    #{ssafy.homeType},#{ssafy.approvalDate},#{ssafy.resistedDate})
+    </insert>
+
+    <insert id="insertHomeImage" parameterType="list">
+        insert into images (home_id, url)
+        VALUES
+        <foreach collection="list" item="image" separator=",">
+            (#{image.homeId}, #{image.url})
+        </foreach>
+    </insert>
+
 </mapper>
