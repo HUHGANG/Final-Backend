@@ -20,17 +20,17 @@ public class HomeService {
     return homeMapper.selectLocationList(location);
   }
 
-  public HomeListResDto selectDabangHomeList(float neLat, float neLng, float swLat, float swLng, int page, int size) {
+  public HomeListResDto selectDabangHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int page, int size) {
     int offset = (page - 1) * size;
 
-    List<Dabang> homeList = homeMapper.selectDabangHomeList(neLat, neLng, swLat, swLng, offset, size);
-    int totalCnt = homeMapper.countTotalHome(neLat, neLng, swLat, swLng);
+    List<Dabang> homeList = homeMapper.selectDabangHomeList(bCode, neLat, neLng, swLat, swLng, offset, size);
+    int totalCnt = homeMapper.countTotalHome(bCode, neLat, neLng, swLat, swLng);
 
     return HomeListResDto.builder()
-            .currentPage(page)
-            .totalPage((totalCnt + size - 1) / size)
-            .totalCnt(totalCnt)
-            .homeList(homeList)
-            .build();
+        .currentPage(page)
+        .totalPage((totalCnt + size - 1) / size)
+        .totalCnt(totalCnt)
+        .homeList(homeList)
+        .build();
   }
 }

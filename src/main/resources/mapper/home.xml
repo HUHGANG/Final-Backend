@@ -80,6 +80,9 @@
                  join b_code b on d.b_code = b.b_code
         where (lat between #{swLat} and #{neLat})
           and (lng between #{swLng} and #{neLng})
+        <if test="bCode != null and bCode != ''">
+            and b.b_code = #{bCode}
+        </if>
         order by d.resisted_date desc
         limit #{offset}, #{size}
     </select>
@@ -90,5 +93,8 @@
                  join b_code b on d.b_code = b.b_code
         where (lat between #{swLat} and #{neLat})
           and (lng between #{swLng} and #{neLng})
+        <if test="bCode != null and bCode != ''">
+            and b.b_code = #{bCode}
+        </if>
     </select>
 </mapper>

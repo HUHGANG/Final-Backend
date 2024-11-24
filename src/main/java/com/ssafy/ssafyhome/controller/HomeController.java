@@ -26,12 +26,13 @@ public class HomeController {
 
   @GetMapping("/dabang")
   @Operation(summary = "다방 매물 리스트 조회", description = "")
-  public HomeListResDto selectDabangHomeList(@RequestParam(defaultValue = "35.2") float neLat,
+  public HomeListResDto selectDabangHomeList(@RequestParam(required = false) Long bCode,
+                                             @RequestParam(defaultValue = "35.2") float neLat,
                                              @RequestParam(defaultValue = "126.84") float neLng,
                                              @RequestParam(defaultValue = "35.18") float swLat,
                                              @RequestParam(defaultValue = "126.8") float swLng,
                                              @RequestParam(defaultValue = "1") int page,
                                              @RequestParam(defaultValue = "20") int size) {
-    return homeService.selectDabangHomeList(neLat, neLng, swLat, swLng, page, size);
+    return homeService.selectDabangHomeList(bCode, neLat, neLng, swLat, swLng, page, size);
   }
 }

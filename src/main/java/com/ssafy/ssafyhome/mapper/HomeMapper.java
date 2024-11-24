@@ -11,7 +11,7 @@ public interface HomeMapper {
 
   List<HomeBCodeResDto> selectLocationList(String location);
 
-  List<Dabang> selectDabangHomeList(float neLat, float neLng, float swLat, float swLng, int offset, int size);
+  List<Dabang> selectDabangHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int offset, int size);
 
-  int countTotalHome(float neLat, float neLng, float swLat, float swLng);
+  int countTotalHome(Long bCode, float neLat, float neLng, float swLat, float swLng);
 }
