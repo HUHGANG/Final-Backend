@@ -4,6 +4,16 @@
 
 <mapper namespace="com.ssafy.ssafyhome.mapper.HomeMapper">
 
+    <select id="selectLocationList" resultType="HomeBCodeResDto">
+        SELECT b_code,
+               TRIM(CONCAT(IFNULL(sido, ''), ' ', IFNULL(gugun, ''), ' ', IFNULL(dong, ''))) AS location
+        FROM b_code
+        WHERE sido LIKE CONCAT('%', #{location}, '%')
+           OR gugun LIKE CONCAT('%', #{location}, '%')
+           OR dong LIKE CONCAT('%', #{location}, '%');
+    </select>
+
+
     <resultMap id="DabangResultMap" type="Dabang">
         <id property="id" column="id" />
         <result property="detailId" column="detailId" />

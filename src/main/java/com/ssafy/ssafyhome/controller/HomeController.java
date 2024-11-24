@@ -1,14 +1,14 @@
 package com.ssafy.ssafyhome.controller;
 
+import com.ssafy.ssafyhome.domain.dto.HomeBCodeResDto;
 import com.ssafy.ssafyhome.domain.dto.HomeListResDto;
 import com.ssafy.ssafyhome.service.HomeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/home")
@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 
   private final HomeService homeService;
+
+  @GetMapping("/search")
+  @Operation(summary = "지역 검색", description = "")
+  public List<HomeBCodeResDto> selectLocationList(String location) {
+    return homeService.selectLocationList(location);
+  }
 
   @GetMapping("/dabang")
   @Operation(summary = "다방 매물 리스트 조회", description = "")
