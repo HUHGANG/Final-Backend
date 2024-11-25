@@ -51,8 +51,8 @@ public class HomeService {
 
     try {
       result = geocoderUtil.getGeocoder(dto.getAddress());
-      lat = Float.parseFloat((String) ((Map) ((Map) ((Map) result.get("response")).get("result")).get("point")).get("x"));
-      lng = Float.parseFloat((String) ((Map) ((Map) ((Map) result.get("response")).get("result")).get("point")).get("y"));
+      lng = Float.parseFloat((String) ((Map) ((Map) ((Map) result.get("response")).get("result")).get("point")).get("x"));
+      lat = Float.parseFloat((String) ((Map) ((Map) ((Map) result.get("response")).get("result")).get("point")).get("y"));
     } catch (Exception e) {
       throw new BadRequestException("지번 ㄱㄱ");
     }
