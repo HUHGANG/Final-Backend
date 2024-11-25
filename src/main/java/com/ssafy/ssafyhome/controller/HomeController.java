@@ -62,6 +62,12 @@ public class HomeController {
     return homeService.selectSsafyHomeDetail(id);
   }
 
+  @RoleCheck({Role.ADMIN, Role.USER})
+  @PostMapping("/ssafy/content-ai-generation")
+  @Operation(summary = "싸피생 매물 내용 ai 생성", description = "")
+  public String generateContentByAI(@RequestBody HomeSsafyReqDto dto){
+    return homeService.generateContentByAI(dto);
+  }
 
   @RoleCheck({Role.ADMIN, Role.USER})
   @PostMapping("/ssafy")

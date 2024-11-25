@@ -9,8 +9,15 @@ import com.ssafy.ssafyhome.exception.BadRequestException;
 import com.ssafy.ssafyhome.exception.ForbiddenException;
 import com.ssafy.ssafyhome.mapper.HomeMapper;
 import com.ssafy.ssafyhome.util.GeocoderUtil;
+import com.ssafy.ssafyhome.util.PromptTemplateLoader;
 import com.ssafy.ssafyhome.util.S3Util;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.ai.chat.messages.Message;
+import org.springframework.ai.chat.messages.SystemMessage;
+import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +27,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class HomeService {
@@ -27,6 +35,8 @@ public class HomeService {
   private final HomeMapper homeMapper;
   private final GeocoderUtil geocoderUtil;
   private final S3Util s3Util;
+  private final ChatModel chatModel;
+  private final PromptTemplateLoader promptLoader;
 
   public List<HomeBCodeResDto> selectLocationList(String location) {
     return homeMapper.selectLocationList(location);
@@ -71,6 +81,38 @@ public class HomeService {
     ssafy.setMember(member);
 
     return ssafy;
+  }
+
+  public String generateContentByAI(HomeSsafyReqDto dto) {
+    System.out.println(dto);
+    try {
+      // 유저 프롬프트 템플릿 로드 및 변수 설정
+      String userPromptTemplate = promptLoader.loadUserPrompt();
+      PromptTemplate userTemplate = new PromptTemplate(userPromptTemplate);
+      userTemplate.add("dto", dto);
+      String userCommand = userTemplate.render();
+
+      // 시스템 프롬프트 로드
+      String systemPromptTemplate = promptLoader.loadSystemPrompt();
+      PromptTemplate systemTemplate = new PromptTemplate(systemPromptTemplate);
+      systemTemplate.add("dto", dto);
+      String systemCommand = systemTemplate.render();
+
+      // 메시지 생성
+      Message userMessage = new UserMessage(userCommand);
+      Message systemMessage = new SystemMessage(systemCommand);
+
+      // API 호출
+      String response = chatModel.call(userMessage, systemMessage);
+      System.out.println(response);
+      log.info("Generated response for dto: {}", dto);
+
+      return response;
+
+    } catch (Exception e) {
+      log.error("Error processing attraction request for dto: {}", dto, e);
+      throw new RuntimeException("Error processing request: " + e.getMessage());
+    }
   }
 
   @Transactional
