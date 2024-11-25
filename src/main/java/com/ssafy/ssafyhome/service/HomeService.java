@@ -1,7 +1,8 @@
 package com.ssafy.ssafyhome.service;
 
 import com.ssafy.ssafyhome.domain.dto.HomeBCodeResDto;
-import com.ssafy.ssafyhome.domain.dto.HomeListResDto;
+import com.ssafy.ssafyhome.domain.dto.HomeDabangListResDto;
+import com.ssafy.ssafyhome.domain.dto.HomeSsafyListResDto;
 import com.ssafy.ssafyhome.domain.dto.HomeSsafyReqDto;
 import com.ssafy.ssafyhome.domain.entity.*;
 import com.ssafy.ssafyhome.exception.BadRequestException;
@@ -31,18 +32,32 @@ public class HomeService {
     return homeMapper.selectLocationList(location);
   }
 
-  public HomeListResDto selectDabangHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int page, int size) {
+  public HomeDabangListResDto selectDabangHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int page, int size) {
     int offset = (page - 1) * size;
 
     List<Dabang> homeList = homeMapper.selectDabangHomeList(bCode, neLat, neLng, swLat, swLng, offset, size);
-    int totalCnt = homeMapper.countTotalHome(bCode, neLat, neLng, swLat, swLng);
+    int totalCnt = homeMapper.countTotalHome("dabang", bCode, neLat, neLng, swLat, swLng);
 
-    return HomeListResDto.builder()
+    return HomeDabangListResDto.builder()
         .currentPage(page)
         .totalPage((totalCnt + size - 1) / size)
         .totalCnt(totalCnt)
         .homeList(homeList)
         .build();
+  }
+
+  public HomeSsafyListResDto selectSsafyHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int page, int size) {
+    int offset = (page - 1) * size;
+
+    List<Ssafy> homeList = homeMapper.selectSsafyHomeList(bCode, neLat, neLng, swLat, swLng, offset, size);
+    int totalCnt = homeMapper.countTotalHome("ssafy", bCode, neLat, neLng, swLat, swLng);
+
+    return HomeSsafyListResDto.builder()
+            .currentPage(page)
+            .totalPage((totalCnt + size - 1) / size)
+            .totalCnt(totalCnt)
+            .homeList(homeList)
+            .build();
   }
 
   @Transactional

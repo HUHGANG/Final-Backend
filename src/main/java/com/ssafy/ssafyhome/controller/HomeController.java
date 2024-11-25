@@ -3,7 +3,8 @@ package com.ssafy.ssafyhome.controller;
 import com.ssafy.ssafyhome.annotation.Login;
 import com.ssafy.ssafyhome.annotation.RoleCheck;
 import com.ssafy.ssafyhome.domain.dto.HomeBCodeResDto;
-import com.ssafy.ssafyhome.domain.dto.HomeListResDto;
+import com.ssafy.ssafyhome.domain.dto.HomeDabangListResDto;
+import com.ssafy.ssafyhome.domain.dto.HomeSsafyListResDto;
 import com.ssafy.ssafyhome.domain.dto.HomeSsafyReqDto;
 import com.ssafy.ssafyhome.domain.entity.Member;
 import com.ssafy.ssafyhome.domain.entity.Ssafy;
@@ -33,15 +34,28 @@ public class HomeController {
 
   @GetMapping("/dabang")
   @Operation(summary = "다방 매물 리스트 조회", description = "")
-  public HomeListResDto selectDabangHomeList(@RequestParam(required = false) Long bCode,
-                                             @RequestParam(defaultValue = "35.2") float neLat,
-                                             @RequestParam(defaultValue = "126.84") float neLng,
-                                             @RequestParam(defaultValue = "35.18") float swLat,
-                                             @RequestParam(defaultValue = "126.8") float swLng,
-                                             @RequestParam(defaultValue = "1") int page,
-                                             @RequestParam(defaultValue = "20") int size) {
+  public HomeDabangListResDto selectDabangHomeList(@RequestParam(required = false) Long bCode,
+                                                   @RequestParam(defaultValue = "35.2") float neLat,
+                                                   @RequestParam(defaultValue = "126.84") float neLng,
+                                                   @RequestParam(defaultValue = "35.18") float swLat,
+                                                   @RequestParam(defaultValue = "126.8") float swLng,
+                                                   @RequestParam(defaultValue = "1") int page,
+                                                   @RequestParam(defaultValue = "20") int size) {
     return homeService.selectDabangHomeList(bCode, neLat, neLng, swLat, swLng, page, size);
   }
+
+  @GetMapping("/ssafy")
+  @Operation(summary = "싸피생 매물 리스트 조회", description = "")
+  public HomeSsafyListResDto selectSsafyHomeList(@RequestParam(required = false) Long bCode,
+                                                 @RequestParam(defaultValue = "35.2") float neLat,
+                                                 @RequestParam(defaultValue = "126.84") float neLng,
+                                                 @RequestParam(defaultValue = "35.18") float swLat,
+                                                 @RequestParam(defaultValue = "126.7") float swLng,
+                                                 @RequestParam(defaultValue = "1") int page,
+                                                 @RequestParam(defaultValue = "20") int size) {
+    return homeService.selectSsafyHomeList(bCode, neLat, neLng, swLat, swLng, page, size);
+  }
+
 
   @RoleCheck({Role.ADMIN, Role.USER})
   @PostMapping("/ssafy")

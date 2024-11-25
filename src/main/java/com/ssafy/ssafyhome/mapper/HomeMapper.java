@@ -16,7 +16,9 @@ public interface HomeMapper {
 
   List<Dabang> selectDabangHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int offset, int size);
 
-  int countTotalHome(Long bCode, float neLat, float neLng, float swLat, float swLng);
+  List<Ssafy> selectSsafyHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int offset, int size);
+
+  int countTotalHome(String table, Long bCode, float neLat, float neLng, float swLat, float swLng);
 
   void insertSsafyHome(@Param("ssafy") Ssafy ssafy);
 

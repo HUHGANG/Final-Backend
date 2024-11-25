@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class HomeListResDto {
+public class HomeDabangListResDto {
 
   private int currentPage;
   private int totalPage;
