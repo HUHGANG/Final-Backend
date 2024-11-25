@@ -87,24 +87,25 @@ public class HomeService {
     System.out.println(dto);
     try {
       // 유저 프롬프트 템플릿 로드 및 변수 설정
-      String userPromptTemplate = promptLoader.loadUserPrompt();
-      PromptTemplate userTemplate = new PromptTemplate(userPromptTemplate);
-      userTemplate.add("dto", dto);
-      String userCommand = userTemplate.render();
+//      String userPromptTemplate = promptLoader.loadUserPrompt();
+//      PromptTemplate userTemplate = new PromptTemplate(userPromptTemplate);
+//      userTemplate.add("dto", dto);
+//      String userCommand = userTemplate.render();
 
       // 시스템 프롬프트 로드
       String systemPromptTemplate = promptLoader.loadSystemPrompt();
       PromptTemplate systemTemplate = new PromptTemplate(systemPromptTemplate);
-      systemTemplate.add("dto", dto);
+      systemTemplate.add("house-info", dto);
       String systemCommand = systemTemplate.render();
 
       // 메시지 생성
-      Message userMessage = new UserMessage(userCommand);
+//      Message userMessage = new UserMessage(userCommand);
       Message systemMessage = new SystemMessage(systemCommand);
 
       // API 호출
-      String response = chatModel.call(userMessage, systemMessage);
-      System.out.println(response);
+//      String response = chatModel.call(userMessage, systemMessage);
+      String response = chatModel.call(systemMessage);
+
       log.info("Generated response for dto: {}", dto);
 
       return response;
