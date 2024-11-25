@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ssafy.ssafyhome.mapper.HomeMapper">
+
+    <select id="selectLocationList" resultType="HomeBCodeResDto">
+        SELECT b_code,
+               TRIM(CONCAT(IFNULL(sido, ''), ' ', IFNULL(gugun, ''), ' ', IFNULL(dong, ''))) AS location
+        FROM b_code
+        WHERE sido LIKE CONCAT('%', #{location}, '%')
+           OR gugun LIKE CONCAT('%', #{location}, '%')
+           OR dong LIKE CONCAT('%', #{location}, '%');
+    </select>
+
+
+    <resultMap id="DabangResultMap" type="Dabang">
+        <id property="id" column="id" />
+        <result property="detailId" column="detailId" />
+        <result property="linkUrl" column="linkUrl" />
+        <result property="img" column="img" />
+        <result property="address" column="address" />
+        <result property="lat" column="lat" />
+        <result property="lng" column="lng" />
+        <result property="rentType" column="rentType" />
+        <result property="deposit" column="deposit" />
+        <result property="monthlyRent" column="monthlyRent" />
+        <result property="title" column="title" />
+        <result property="roomType" column="roomType" />
+        <result property="exclusiveArea" column="exclusiveArea" />
+        <result property="floor" column="floor" />
+        <result property="maintenanceCost" column="maintenanceCost" />
+        <result property="roomCnt" column="roomCnt" />
+        <result property="bathroomCnt" column="bathroomCnt" />
+        <result property="direction" column="direction" />
+        <result property="availableFrom" column="availableFrom" />
+        <result property="homeType" column="homeType" />
+        <result property="approvalDate" column="approvalDate" />
+        <result property="resistedDate" column="resistedDate" />
+        <result property="createdAt" column="createdAt" />
+        <result property="updatedAt" column="updatedAt" />
+        <association property="bCode" javaType="BCode">
+            <result property="bCode" column="bCode" />
+            <result property="sido" column="sido" />
+            <result property="gugun" column="gugun" />
+            <result property="dong" column="dong" />
+        </association>
+    </resultMap>
+
+    <select id="selectDabangHomeList" resultMap="DabangResultMap">
+        select d.id               AS id,
+               d.detail_id        AS detailId,
+               d.link_url         AS linkUrl,
+               d.img              AS img,
+               d.address          AS address,
+               d.lat              AS lat,
+               d.lng              AS lng,
+               d.rent_type        AS rentType,
+               d.deposit          AS deposit,
+               d.monthly_rent     AS monthlyRent,
+               d.title            AS title,
+               d.room_type        AS roomType,
+               d.exclusive_area   AS exclusiveArea,
+               d.floor            AS floor,
+               d.maintenance_cost AS maintenanceCost,
+               d.room_cnt         AS roomCnt,
+               d.bathroom_cnt     AS bathroomCnt,
+               d.direction        AS direction,
+               d.available_from   AS availableFrom,
+               d.home_type        AS homeType,
+               d.approval_date    AS approvalDate,
+               d.resisted_date    AS resistedDate,
+               d.created_at       AS createdAt,
+               d.updated_at       AS updatedAt,
+               b.b_code           AS bCode,
+               b.sido             AS sido,
+               b.gugun            AS gugun,
+               b.dong             AS dong
+        from dabang d
+                 join b_code b on d.b_code = b.b_code
+        where (lat between #{swLat} and #{neLat})
+          and (lng between #{swLng} and #{neLng})
+        <if test="bCode != null and bCode != ''">
+            and b.b_code = #{bCode}
+        </if>
+        order by d.resisted_date desc
+        limit #{offset}, #{size}
+    </select>
+
+    <select id="countTotalHome">
+        select count(*)
+        from
+        <choose>
+            <when test="table == 'dabang'">
+                dabang d
+            </when>
+            <when test="table == 'ssafy'">
+                ssafy d
+            </when>
+        </choose>
+                 join b_code b on d.b_code = b.b_code
+        where (lat between #{swLat} and #{neLat})
+          and (lng between #{swLng} and #{neLng})
+        <if test="bCode != null and bCode != ''">
+            and b.b_code = #{bCode}
+        </if>
+    </select>
+
+
+    <resultMap id="SsafyResultMap" type="com.ssafy.ssafyhome.domain.entity.Ssafy">
+        <id property="id" column="id" />
+        <result property="memberId" column="memberId" />
+        <result property="address" column="address" />
+        <result property="lat" column="lat" />
+        <result property="lng" column="lng" />
+<!--        <result property="rentType" column="rentType" javaType="com.ssafy.ssafyhome.domain.enums.RentType" />-->
+        <result property="rentType" column="rentType" />
+        <result property="deposit" column="deposit" />
+        <result property="monthlyRent" column="monthlyRent" />
+        <result property="maintenanceCost" column="maintenanceCost" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="roomType" column="roomType" />
+        <result property="exclusiveArea" column="exclusiveArea" />
+        <result property="floor" column="floor" />
+        <result property="roomCnt" column="roomCnt" />
+        <result property="bathroomCnt" column="bathroomCnt" />
+        <result property="direction" column="direction" />
+        <result property="expirationDate" column="expirationDate" />
+        <result property="availableFrom" column="availableFrom" />
+        <result property="homeType" column="homeType" />
+        <result property="approvalDate" column="approvalDate" />
+        <result property="resistedDate" column="resistedDate" />
+        <result property="createdAt" column="createdAt" />
+        <result property="updatedAt" column="updatedAt" />
+        <association property="bCode" javaType="BCode">
+            <result property="bCode" column="bCode" />
+            <result property="sido" column="sido" />
+            <result property="gugun" column="gugun" />
+            <result property="dong" column="dong" />
+        </association>
+<!--        <association property="member" javaType="Member">-->
+<!--            <id property="id" column="memberId" />-->
+<!--            <result property="name" column="name" />-->
+<!--        </association>-->
+        <collection property="imgList" ofType="Image">
+            <id property="id" column="imageId" />
+            <result property="homeId" column="homeId" />
+            <result property="url" column="url" />
+        </collection>
+    </resultMap>
+
+    <select id="selectSsafyHomeList" resultMap="SsafyResultMap">
+        select d.id               AS id,
+        d.address          AS address,
+        d.lat              AS lat,
+        d.lng              AS lng,
+        d.rent_type        AS rentType,
+        d.deposit          AS deposit,
+        d.monthly_rent     AS monthlyRent,
+        d.maintenance_cost AS maintenanceCost,
+        d.title            AS title,
+        d.content          AS content,
+        d.room_type        AS roomType,
+        d.exclusive_area   AS exclusiveArea,
+        d.floor            AS floor,
+        d.room_cnt         AS roomCnt,
+        d.bathroom_cnt     AS bathroomCnt,
+        d.direction        AS direction,
+        d.expiration_date  AS expirationDate,
+        d.available_from   AS availableFrom,
+        d.home_type        AS homeType,
+        d.approval_date    AS approvalDate,
+        d.resisted_date    AS resistedDate,
+        d.created_at       AS createdAt,
+        d.updated_at       AS updatedAt,
+        b.b_code           AS bCode,
+        b.sido             AS sido,
+        b.gugun            AS gugun,
+        b.dong             AS dong,
+#         m.id as memberId,
+#         m.name as name,
+        i.id as imageId,
+        i.url as url
+        from ssafy d
+        join b_code b on d.b_code = b.b_code
+#         join members m on d.member_id = m.id
+        left join images i on d.id = i.home_id
+        where (lat between #{swLat} and #{neLat})
+        and (lng between #{swLng} and #{neLng})
+        <if test="bCode != null and bCode != ''">
+            and b.b_code = #{bCode}
+        </if>
+        order by d.resisted_date desc
+        limit #{offset}, #{size}
+    </select>
+
+    <select id="selectSsafyHomeDetail">
+        select *
+        from ssafy
+        where id = #{id}
+    </select>
+
+    <select id="selectMember">
+        select *
+        from members m
+        join ssafy s on m.id = s.member_id
+        where s.id = #{id}
+    </select>
+
+    <insert id="insertSsafyHome" useGeneratedKeys="true" keyProperty="id">
+        insert into ssafy (member_id, address, lat, lng, b_code, rent_type, deposit, monthly_rent, maintenance_cost,
+                           title, content, room_type, exclusive_area, floor, room_cnt, bathroom_cnt, direction,
+                           expiration_date, available_from, home_type, approval_date, resisted_date)
+            values (#{ssafy.member.id}, #{ssafy.address}, #{ssafy.lat},#{ssafy.lng},#{ssafy.bCode.bCode},#{ssafy.rentType},#{ssafy.deposit},
+                    #{ssafy.monthlyRent},#{ssafy.maintenanceCost},#{ssafy.title},#{ssafy.content},#{ssafy.roomType},#{ssafy.exclusiveArea},
+                    #{ssafy.floor},#{ssafy.roomCnt},#{ssafy.bathroomCnt},#{ssafy.direction},#{ssafy.expirationDate},#{ssafy.availableFrom},
+                    #{ssafy.homeType},#{ssafy.approvalDate},#{ssafy.resistedDate})
+    </insert>
+
+    <insert id="insertHomeImage" parameterType="list">
+        insert into images (home_id, url)
+        VALUES
+        <foreach collection="list" item="image" separator=",">
+            (#{image.homeId}, #{image.url})
+        </foreach>
+    </insert>
+
+    <select id="selectSsafyHome">
+        select member_id from ssafy where id= #{id}
+    </select>
+
+    <delete id="deleteSsafyHome">
+        delete from ssafy where id = #{id}
+    </delete>
+
+</mapper>
