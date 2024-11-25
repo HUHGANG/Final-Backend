@@ -60,6 +60,19 @@ public class HomeService {
             .build();
   }
 
+  public Ssafy selectSsafyHomeDetail(int id){
+    Ssafy ssafy =  homeMapper.selectSsafyHomeDetail(id);
+
+    if(ssafy == null) {
+      throw new BadRequestException("매물 존재x");
+    }
+
+    Member member = homeMapper.selectMember(id);
+    ssafy.setMember(member);
+
+    return ssafy;
+  }
+
   @Transactional
   public Ssafy insertSsafyHome(Member member, HomeSsafyReqDto dto, List<MultipartFile> multipartFiles) {
     Map result;

@@ -56,6 +56,12 @@ public class HomeController {
     return homeService.selectSsafyHomeList(bCode, neLat, neLng, swLat, swLng, page, size);
   }
 
+  @GetMapping("/ssafy/{id}")
+  @Operation(summary = "싸피생 매물 상세 조회", description = "")
+  public Ssafy selectSsafyHomeDetail(@PathVariable int id) {
+    return homeService.selectSsafyHomeDetail(id);
+  }
+
 
   @RoleCheck({Role.ADMIN, Role.USER})
   @PostMapping("/ssafy")
