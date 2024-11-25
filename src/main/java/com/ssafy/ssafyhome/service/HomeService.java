@@ -5,6 +5,7 @@ import com.ssafy.ssafyhome.domain.dto.HomeListResDto;
 import com.ssafy.ssafyhome.domain.dto.HomeSsafyReqDto;
 import com.ssafy.ssafyhome.domain.entity.*;
 import com.ssafy.ssafyhome.exception.BadRequestException;
+import com.ssafy.ssafyhome.exception.ForbiddenException;
 import com.ssafy.ssafyhome.mapper.HomeMapper;
 import com.ssafy.ssafyhome.util.GeocoderUtil;
 import com.ssafy.ssafyhome.util.S3Util;
@@ -111,5 +112,19 @@ public class HomeService {
     }
 
     return ssafy;
+  }
+
+  public void deleteSsafyHome(Member member, int id) {
+    Integer authorId = homeMapper.selectSsafyHome(id);
+
+    if(authorId == null) {
+      throw new BadRequestException("매물 존재x");
+    }
+
+    if (authorId != member.getId()) {
+      throw new ForbiddenException("권한이 없습니다.");
+    }
+
+    homeMapper.deleteSsafyHome(id);
   }
 }

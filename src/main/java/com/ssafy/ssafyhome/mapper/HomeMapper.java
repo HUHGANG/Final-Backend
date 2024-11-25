@@ -21,4 +21,8 @@ public interface HomeMapper {
   void insertSsafyHome(@Param("ssafy") Ssafy ssafy);
 
   void insertHomeImage(List<Image> imageList);
+
+  Integer selectSsafyHome(int id);
+
+  void deleteSsafyHome(int id);
 }

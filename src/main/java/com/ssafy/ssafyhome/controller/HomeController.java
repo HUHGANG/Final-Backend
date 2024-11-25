@@ -51,4 +51,11 @@ public class HomeController {
                                @RequestPart(name = "images") List<MultipartFile> multipartFiles) {
     return homeService.insertSsafyHome(member, dto, multipartFiles);
   }
+
+  @RoleCheck({Role.ADMIN, Role.USER})
+  @DeleteMapping("/ssafy/{id}")
+  @Operation(summary = "싸피생 매물 삭제", description = "")
+  public void insertSsafyHome(@Login Member member, @PathVariable int id) {
+    homeService.deleteSsafyHome(member, id);
+  }
 }
