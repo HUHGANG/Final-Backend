@@ -1,15 +1,12 @@
 package com.ssafy.ssafyhome.domain.entity;
 
 import com.ssafy.ssafyhome.domain.enums.Role;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @ToString
+@NoArgsConstructor
 public class Member {
 
   private int id;
@@ -19,4 +16,13 @@ public class Member {
   private Role role;
   private String createdAt;
 
+  @Builder
+  public Member(int id, String email, String password, String name, Role role, String createdAt) {
+    this.id = id;
+    this.email = email;
+    this.password = password;
+    this.name = name;
+    this.role = role;
+    this.createdAt = createdAt;
+  }
 }

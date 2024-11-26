@@ -1,6 +1,5 @@
 package com.ssafy.ssafyhome.domain.entity;
 
-import com.ssafy.ssafyhome.domain.enums.RentType;
 import lombok.*;
 
 import java.util.Date;
@@ -19,7 +18,7 @@ public class Ssafy {
   private double lat;
   private double lng;
   private BCode bCode;
-  private RentType rentType;
+  private String rentType;
   private int deposit;
   private int monthlyRent;
   private int maintenanceCost;
@@ -40,7 +39,7 @@ public class Ssafy {
   private Date updatedAt;
 
   @Builder
-  public Ssafy(int id, Member member, List<Image> imgList, String address, double lat, double lng, BCode bCode, RentType rentType, int deposit, int monthlyRent, int maintenanceCost, String title, String content, String roomType, float exclusiveArea, String floor, int roomCnt, int bathroomCnt, String direction, Date expirationDate, String availableFrom, String homeType, Date approvalDate, Date resistedDate, Date createdAt, Date updatedAt) {
+  public Ssafy(int id, Member member, List<Image> imgList, String address, double lat, double lng, BCode bCode, String rentType, int deposit, int monthlyRent, int maintenanceCost, String title, String content, String roomType, float exclusiveArea, String floor, int roomCnt, int bathroomCnt, String direction, Date expirationDate, String availableFrom, String homeType, Date approvalDate, Date resistedDate, Date createdAt, Date updatedAt) {
     this.id = id;
     this.member = member;
     this.imgList = imgList;

@@ -35,33 +35,57 @@ public class HomeController {
   @GetMapping("/dabang")
   @Operation(summary = "다방 매물 리스트 조회", description = "")
   public HomeDabangListResDto selectDabangHomeList(@RequestParam(required = false) Long bCode,
+                                                   @RequestParam(required = false) String rentType,
+                                                   @RequestParam(required = false) Integer depositRangeMin,
+                                                   @RequestParam(required = false) Integer depositRangeMax,
+                                                   @RequestParam(required = false) Integer monthlyRentRangeMin,
+                                                   @RequestParam(required = false) Integer monthlyRentRangeMax,
+                                                   @RequestParam(required = false) Integer maintenanceCostRangeMin,
+                                                   @RequestParam(required = false) Integer maintenanceCostRangeMax,
+                                                   @RequestParam(required = false) Float exclusiveAreaRangeMin,
+                                                   @RequestParam(required = false) Float exclusiveAreaRangeMax,
+                                                   @RequestParam(required = false) String roomType,
                                                    @RequestParam(defaultValue = "35.2") float neLat,
                                                    @RequestParam(defaultValue = "126.84") float neLng,
                                                    @RequestParam(defaultValue = "35.18") float swLat,
                                                    @RequestParam(defaultValue = "126.8") float swLng,
                                                    @RequestParam(defaultValue = "1") int page,
                                                    @RequestParam(defaultValue = "20") int size) {
-    return homeService.selectDabangHomeList(bCode, neLat, neLng, swLat, swLng, page, size);
+    return homeService.selectDabangHomeList(bCode, rentType,depositRangeMin,depositRangeMax,monthlyRentRangeMin,
+            monthlyRentRangeMax,maintenanceCostRangeMin,maintenanceCostRangeMax,exclusiveAreaRangeMin,exclusiveAreaRangeMax,
+            roomType,neLat, neLng, swLat, swLng, page, size);
   }
 
   @GetMapping("/ssafy")
   @Operation(summary = "싸피생 매물 리스트 조회", description = "")
   public HomeSsafyListResDto selectSsafyHomeList(@RequestParam(required = false) Long bCode,
+                                                 @RequestParam(required = false) String rentType,
+                                                 @RequestParam(required = false) Integer depositRangeMin,
+                                                 @RequestParam(required = false) Integer depositRangeMax,
+                                                 @RequestParam(required = false) Integer monthlyRentRangeMin,
+                                                 @RequestParam(required = false) Integer monthlyRentRangeMax,
+                                                 @RequestParam(required = false) Integer maintenanceCostRangeMin,
+                                                 @RequestParam(required = false) Integer maintenanceCostRangeMax,
+                                                 @RequestParam(required = false) Float exclusiveAreaRangeMin,
+                                                 @RequestParam(required = false) Float exclusiveAreaRangeMax,
+                                                 @RequestParam(required = false) String roomType,
                                                  @RequestParam(defaultValue = "35.2") float neLat,
                                                  @RequestParam(defaultValue = "126.84") float neLng,
                                                  @RequestParam(defaultValue = "35.18") float swLat,
                                                  @RequestParam(defaultValue = "126.7") float swLng,
                                                  @RequestParam(defaultValue = "1") int page,
                                                  @RequestParam(defaultValue = "20") int size) {
-    return homeService.selectSsafyHomeList(bCode, neLat, neLng, swLat, swLng, page, size);
+    return homeService.selectSsafyHomeList(bCode, rentType,depositRangeMin,depositRangeMax,monthlyRentRangeMin,
+            monthlyRentRangeMax,maintenanceCostRangeMin,maintenanceCostRangeMax,exclusiveAreaRangeMin,exclusiveAreaRangeMax,
+            roomType,neLat, neLng, swLat, swLng, page, size);
   }
 
-  @GetMapping("/ssafy/{id}")
-  @Operation(summary = "싸피생 매물 상세 조회", description = "")
-  public Ssafy selectSsafyHomeDetail(@PathVariable int id) {
-    return homeService.selectSsafyHomeDetail(id);
+  @RoleCheck({Role.ADMIN, Role.USER})
+  @PostMapping("/ssafy/content-ai-generation")
+  @Operation(summary = "싸피생 매물 내용 ai 생성", description = "")
+  public String generateContentByAI(@RequestBody HomeSsafyReqDto dto){
+    return homeService.generateContentByAI(dto);
   }
-
 
   @RoleCheck({Role.ADMIN, Role.USER})
   @PostMapping("/ssafy")

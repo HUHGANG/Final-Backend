@@ -1,6 +1,5 @@
 package com.ssafy.ssafyhome.domain.entity;
 
-import com.ssafy.ssafyhome.domain.enums.RentType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -20,7 +19,7 @@ public class Dabang {
   private float lat;
   private float lng;
   private BCode bCode;
-  private RentType rentType;
+  private String rentType;
   private int deposit;
   private int monthlyRent;
   private String title;

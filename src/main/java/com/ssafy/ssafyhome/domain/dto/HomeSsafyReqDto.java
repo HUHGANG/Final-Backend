@@ -1,6 +1,5 @@
 package com.ssafy.ssafyhome.domain.dto;
 
-import com.ssafy.ssafyhome.domain.enums.RentType;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -11,7 +10,7 @@ import java.util.Date;
 public class HomeSsafyReqDto {
 
   private String address;
-  private RentType rentType;
+  private String rentType;
   private int deposit;
   private int monthlyRent;
   private int maintenanceCost;
