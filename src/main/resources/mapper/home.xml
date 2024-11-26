@@ -195,19 +195,6 @@
         limit #{offset}, #{size}
     </select>
 
-    <select id="selectSsafyHomeDetail">
-        select *
-        from ssafy
-        where id = #{id}
-    </select>
-
-    <select id="selectMember">
-        select *
-        from members m
-        join ssafy s on m.id = s.member_id
-        where s.id = #{id}
-    </select>
-
     <insert id="insertSsafyHome" useGeneratedKeys="true" keyProperty="id">
         insert into ssafy (member_id, address, lat, lng, b_code, rent_type, deposit, monthly_rent, maintenance_cost,
                            title, content, room_type, exclusive_area, floor, room_cnt, bathroom_cnt, direction,

@@ -21,10 +21,6 @@ public interface HomeMapper {
 
   int countTotalHome(String table, Long bCode, float neLat, float neLng, float swLat, float swLng);
 
-  Ssafy selectSsafyHomeDetail(int id);
-
-  Member selectMember(int id);
-
   void insertSsafyHome(@Param("ssafy") Ssafy ssafy);
 
   void insertHomeImage(List<Image> imageList);
