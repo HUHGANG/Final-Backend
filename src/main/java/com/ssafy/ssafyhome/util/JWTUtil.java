@@ -42,6 +42,7 @@ public class JWTUtil {
         .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
         .setSubject(String.valueOf(member.getId()))
         .claim("name", member.getName())
+        .claim("email", member.getEmail())
         .claim("role", member.getRole())
         .claim("token_type", tokenType)
         .setIssuedAt(new Date())
