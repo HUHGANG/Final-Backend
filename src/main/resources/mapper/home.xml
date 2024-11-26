@@ -111,7 +111,7 @@
             and d.exclusive_area <![CDATA[<=]]> #{exclusiveAreaRangeMax}
         </if>
         <if test="roomType != null and roomType != ''">
-            and d.room_type = #{roomType}
+            and d.room_type LIKE CONCAT('%', #{roomType}, '%')
         </if>
         order by d.resisted_date desc
         limit #{offset}, #{size}
@@ -154,7 +154,7 @@
             and d.exclusive_area <![CDATA[<=]]> #{exclusiveAreaRangeMax}
         </if>
         <if test="roomType != null and roomType != ''">
-            and d.room_type = #{roomType}
+            and d.room_type LIKE CONCAT('%', #{roomType}, '%')
         </if>
     </select>
 
@@ -195,7 +195,7 @@
             and d.exclusive_area <![CDATA[<=]]> #{exclusiveAreaRangeMax}
         </if>
         <if test="roomType != null and roomType != ''">
-            and d.room_type = #{roomType}
+            and d.room_type LIKE CONCAT('%', #{roomType}, '%')
         </if>
     </select>
 
@@ -312,7 +312,7 @@
             and d.exclusive_area <![CDATA[<=]]> #{exclusiveAreaRangeMax}
         </if>
         <if test="roomType != null and roomType != ''">
-            and d.room_type = #{roomType}
+            and d.room_type LIKE CONCAT('%', #{roomType}, '%')
         </if>
         order by d.resisted_date desc
         limit #{offset}, #{size}
