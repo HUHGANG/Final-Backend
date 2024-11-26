@@ -83,26 +83,119 @@
         <if test="bCode != null and bCode != ''">
             and b.b_code = #{bCode}
         </if>
+        <if test="rentType != null and rentType != ''">
+            and d.rent_type = #{rentType}
+        </if>
+        <if test="depositRangeMin != null and depositRangeMin != ''">
+            and d.deposit <![CDATA[>=]]> #{depositRangeMin}
+        </if>
+        <if test="depositRangeMax != null and depositRangeMax != ''">
+            and d.deposit <![CDATA[<=]]> #{depositRangeMax}
+        </if>
+        <if test="monthlyRentRangeMin != null and monthlyRentRangeMin != ''">
+            and d.monthly_rent <![CDATA[>=]]> #{monthlyRentRangeMin}
+        </if>
+        <if test="monthlyRentRangeMax != null and monthlyRentRangeMax != ''">
+            and d.monthly_rent <![CDATA[<=]]> #{monthlyRentRangeMax}
+        </if>
+        <if test="maintenanceCostRangeMin != null and maintenanceCostRangeMin != ''">
+            and d.maintenance_cost <![CDATA[>=]]> #{maintenanceCostRangeMin}
+        </if>
+        <if test="maintenanceCostRangeMax != null and maintenanceCostRangeMax != ''">
+            and d.maintenance_cost <![CDATA[<=]]> #{maintenanceCostRangeMax}
+        </if>
+        <if test="exclusiveAreaRangeMin != null and exclusiveAreaRangeMin != ''">
+            and d.exclusive_area <![CDATA[>=]]> #{exclusiveAreaRangeMin}
+        </if>
+        <if test="exclusiveAreaRangeMax != null and exclusiveAreaRangeMax != ''">
+            and d.exclusive_area <![CDATA[<=]]> #{exclusiveAreaRangeMax}
+        </if>
+        <if test="roomType != null and roomType != ''">
+            and d.room_type = #{roomType}
+        </if>
         order by d.resisted_date desc
         limit #{offset}, #{size}
     </select>
 
-    <select id="countTotalHome">
+    <select id="countTotalDabangHome">
         select count(*)
-        from
-        <choose>
-            <when test="table == 'dabang'">
-                dabang d
-            </when>
-            <when test="table == 'ssafy'">
-                ssafy d
-            </when>
-        </choose>
+        from dabang d
+        join b_code b on d.b_code = b.b_code
+        where (lat between #{swLat} and #{neLat})
+        and (lng between #{swLng} and #{neLng})
+        <if test="bCode != null and bCode != ''">
+            and b.b_code = #{bCode}
+        </if>
+        <if test="rentType != null and rentType != ''">
+            and d.rent_type = #{rentType}
+        </if>
+        <if test="depositRangeMin != null and depositRangeMin != ''">
+            and d.deposit <![CDATA[>=]]> #{depositRangeMin}
+        </if>
+        <if test="depositRangeMax != null and depositRangeMax != ''">
+            and d.deposit <![CDATA[<=]]> #{depositRangeMax}
+        </if>
+        <if test="monthlyRentRangeMin != null and monthlyRentRangeMin != ''">
+            and d.monthly_rent <![CDATA[>=]]> #{monthlyRentRangeMin}
+        </if>
+        <if test="monthlyRentRangeMax != null and monthlyRentRangeMax != ''">
+            and d.monthly_rent <![CDATA[<=]]> #{monthlyRentRangeMax}
+        </if>
+        <if test="maintenanceCostRangeMin != null and maintenanceCostRangeMin != ''">
+            and d.maintenance_cost <![CDATA[>=]]> #{maintenanceCostRangeMin}
+        </if>
+        <if test="maintenanceCostRangeMax != null and maintenanceCostRangeMax != ''">
+            and d.maintenance_cost <![CDATA[<=]]> #{maintenanceCostRangeMax}
+        </if>
+        <if test="exclusiveAreaRangeMin != null and exclusiveAreaRangeMin != ''">
+            and d.exclusive_area <![CDATA[>=]]> #{exclusiveAreaRangeMin}
+        </if>
+        <if test="exclusiveAreaRangeMax != null and exclusiveAreaRangeMax != ''">
+            and d.exclusive_area <![CDATA[<=]]> #{exclusiveAreaRangeMax}
+        </if>
+        <if test="roomType != null and roomType != ''">
+            and d.room_type = #{roomType}
+        </if>
+    </select>
+
+    <select id="countTotalSsafyHome">
+        select count(*)
+        from ssafy d
                  join b_code b on d.b_code = b.b_code
         where (lat between #{swLat} and #{neLat})
           and (lng between #{swLng} and #{neLng})
         <if test="bCode != null and bCode != ''">
             and b.b_code = #{bCode}
+        </if>
+        <if test="rentType != null and rentType != ''">
+            and d.rent_type = #{rentType}
+        </if>
+        <if test="depositRangeMin != null and depositRangeMin != ''">
+            and d.deposit <![CDATA[>=]]> #{depositRangeMin}
+        </if>
+        <if test="depositRangeMax != null and depositRangeMax != ''">
+            and d.deposit <![CDATA[<=]]> #{depositRangeMax}
+        </if>
+        <if test="monthlyRentRangeMin != null and monthlyRentRangeMin != ''">
+            and d.monthly_rent <![CDATA[>=]]> #{monthlyRentRangeMin}
+        </if>
+        <if test="monthlyRentRangeMax != null and monthlyRentRangeMax != ''">
+            and d.monthly_rent <![CDATA[<=]]> #{monthlyRentRangeMax}
+        </if>
+        <if test="maintenanceCostRangeMin != null and maintenanceCostRangeMin != ''">
+            and d.maintenance_cost <![CDATA[>=]]> #{maintenanceCostRangeMin}
+        </if>
+        <if test="maintenanceCostRangeMax != null and maintenanceCostRangeMax != ''">
+            and d.maintenance_cost <![CDATA[<=]]> #{maintenanceCostRangeMax}
+        </if>
+        <if test="exclusiveAreaRangeMin != null and exclusiveAreaRangeMin != ''">
+            and d.exclusive_area <![CDATA[>=]]> #{exclusiveAreaRangeMin}
+        </if>
+        <if test="exclusiveAreaRangeMax != null and exclusiveAreaRangeMax != ''">
+            and d.exclusive_area <![CDATA[<=]]> #{exclusiveAreaRangeMax}
+        </if>
+        <if test="roomType != null and roomType != ''">
+            and d.room_type = #{roomType}
         </if>
     </select>
 
@@ -190,6 +283,36 @@
         and (lng between #{swLng} and #{neLng})
         <if test="bCode != null and bCode != ''">
             and b.b_code = #{bCode}
+        </if>
+        <if test="rentType != null and rentType != ''">
+            and d.rent_type = #{rentType}
+        </if>
+        <if test="depositRangeMin != null and depositRangeMin != ''">
+            and d.deposit <![CDATA[>=]]> #{depositRangeMin}
+        </if>
+        <if test="depositRangeMax != null and depositRangeMax != ''">
+            and d.deposit <![CDATA[<=]]> #{depositRangeMax}
+        </if>
+        <if test="monthlyRentRangeMin != null and monthlyRentRangeMin != ''">
+            and d.monthly_rent <![CDATA[>=]]> #{monthlyRentRangeMin}
+        </if>
+        <if test="monthlyRentRangeMax != null and monthlyRentRangeMax != ''">
+            and d.monthly_rent <![CDATA[<=]]> #{monthlyRentRangeMax}
+        </if>
+        <if test="maintenanceCostRangeMin != null and maintenanceCostRangeMin != ''">
+            and d.maintenance_cost <![CDATA[>=]]> #{maintenanceCostRangeMin}
+        </if>
+        <if test="maintenanceCostRangeMax != null and maintenanceCostRangeMax != ''">
+            and d.maintenance_cost <![CDATA[<=]]> #{maintenanceCostRangeMax}
+        </if>
+        <if test="exclusiveAreaRangeMin != null and exclusiveAreaRangeMin != ''">
+            and d.exclusive_area <![CDATA[>=]]> #{exclusiveAreaRangeMin}
+        </if>
+        <if test="exclusiveAreaRangeMax != null and exclusiveAreaRangeMax != ''">
+            and d.exclusive_area <![CDATA[<=]]> #{exclusiveAreaRangeMax}
+        </if>
+        <if test="roomType != null and roomType != ''">
+            and d.room_type = #{roomType}
         </if>
         order by d.resisted_date desc
         limit #{offset}, #{size}

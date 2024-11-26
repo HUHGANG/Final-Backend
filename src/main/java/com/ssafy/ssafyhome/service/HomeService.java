@@ -42,11 +42,27 @@ public class HomeService {
     return homeMapper.selectLocationList(location);
   }
 
-  public HomeDabangListResDto selectDabangHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int page, int size) {
+  public HomeDabangListResDto selectDabangHomeList(Long bCode,
+                                                   String rentType,
+                                                   Integer depositRangeMin,
+                                                   Integer depositRangeMax,
+                                                   Integer monthlyRentRangeMin,
+                                                   Integer monthlyRentRangeMax,
+                                                   Integer maintenanceCostRangeMin,
+                                                   Integer maintenanceCostRangeMax,
+                                                   Float exclusiveAreaRangeMin,
+                                                   Float exclusiveAreaRangeMax,
+                                                   String roomType,
+                                                   float neLat, float neLng, float swLat, float swLng, int page, int size) {
     int offset = (page - 1) * size;
 
-    List<Dabang> homeList = homeMapper.selectDabangHomeList(bCode, neLat, neLng, swLat, swLng, offset, size);
-    int totalCnt = homeMapper.countTotalHome("dabang", bCode, neLat, neLng, swLat, swLng);
+    List<Dabang> homeList = homeMapper.selectDabangHomeList(bCode, rentType,depositRangeMin,depositRangeMax,monthlyRentRangeMin,
+            monthlyRentRangeMax,maintenanceCostRangeMin,maintenanceCostRangeMax,exclusiveAreaRangeMin,exclusiveAreaRangeMax,
+            roomType,neLat, neLng, swLat, swLng, offset, size);
+
+    int totalCnt = homeMapper.countTotalDabangHome(bCode, rentType,depositRangeMin,depositRangeMax,monthlyRentRangeMin,
+            monthlyRentRangeMax,maintenanceCostRangeMin,maintenanceCostRangeMax,exclusiveAreaRangeMin,exclusiveAreaRangeMax,
+            roomType,neLat, neLng, swLat, swLng);
 
     return HomeDabangListResDto.builder()
         .currentPage(page)
@@ -56,12 +72,27 @@ public class HomeService {
         .build();
   }
 
-  public HomeSsafyListResDto selectSsafyHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int page, int size) {
+  public HomeSsafyListResDto selectSsafyHomeList(Long bCode,
+                                                 String rentType,
+                                                 Integer depositRangeMin,
+                                                 Integer depositRangeMax,
+                                                 Integer monthlyRentRangeMin,
+                                                 Integer monthlyRentRangeMax,
+                                                 Integer maintenanceCostRangeMin,
+                                                 Integer maintenanceCostRangeMax,
+                                                 Float exclusiveAreaRangeMin,
+                                                 Float exclusiveAreaRangeMax,
+                                                 String roomType,
+                                                 float neLat, float neLng, float swLat, float swLng, int page, int size) {
     int offset = (page - 1) * size;
 
-    List<Ssafy> homeList = homeMapper.selectSsafyHomeList(bCode, neLat, neLng, swLat, swLng, offset, size);
-    System.out.println(homeList);
-    int totalCnt = homeMapper.countTotalHome("ssafy", bCode, neLat, neLng, swLat, swLng);
+    List<Ssafy> homeList = homeMapper.selectSsafyHomeList(bCode, rentType,depositRangeMin,depositRangeMax,monthlyRentRangeMin,
+            monthlyRentRangeMax,maintenanceCostRangeMin,maintenanceCostRangeMax,exclusiveAreaRangeMin,exclusiveAreaRangeMax,
+            roomType,neLat, neLng, swLat, swLng, offset, size);
+
+    int totalCnt = homeMapper.countTotalSsafyHome(bCode, rentType,depositRangeMin,depositRangeMax,monthlyRentRangeMin,
+            monthlyRentRangeMax,maintenanceCostRangeMin,maintenanceCostRangeMax,exclusiveAreaRangeMin,exclusiveAreaRangeMax,
+            roomType,neLat, neLng, swLat, swLng);
 
     return HomeSsafyListResDto.builder()
             .currentPage(page)
@@ -118,37 +149,37 @@ public class HomeService {
     }
 
     Ssafy ssafy = Ssafy.builder()
-        .member(member)
-        .address(dto.getAddress())
-        .lat(lat)
-        .lng(lng)
-        .bCode(BCode.builder()
-            .bCode(Long.parseLong(((String) (
-                (Map) (
-                    (Map) (
-                        (Map) result.get("response")
-                    ).get("refined")
-                ).get("structure")
-            ).get("level4LC")).substring(0, 10)))
-            .build())
-        .rentType(dto.getRentType())
-        .deposit(dto.getDeposit())
-        .monthlyRent(dto.getMonthlyRent())
-        .maintenanceCost(dto.getMaintenanceCost())
-        .title(dto.getTitle())
-        .content(dto.getContent())
-        .roomType(dto.getRoomType())
-        .exclusiveArea(dto.getExclusiveArea())
-        .floor(dto.getFloor())
-        .roomCnt(dto.getRoomCnt())
-        .bathroomCnt(dto.getBathroomCnt())
-        .direction(dto.getDirection())
-        .expirationDate(dto.getExpirationDate())
-        .availableFrom(dto.getAvailableFrom())
-        .homeType(dto.getHomeType())
-        .approvalDate(dto.getApprovalDate())
-        .resistedDate(new Date())
-        .build();
+            .member(member)
+            .address(dto.getAddress())
+            .lat(lat)
+            .lng(lng)
+            .bCode(BCode.builder()
+                    .bCode(Long.parseLong(((String) (
+                            (Map) (
+                                    (Map) (
+                                            (Map) result.get("response")
+                                    ).get("refined")
+                            ).get("structure")
+                    ).get("level4LC")).substring(0, 10)))
+                    .build())
+            .rentType(dto.getRentType())
+            .deposit(dto.getDeposit())
+            .monthlyRent(dto.getMonthlyRent())
+            .maintenanceCost(dto.getMaintenanceCost())
+            .title(dto.getTitle())
+            .content(dto.getContent())
+            .roomType(dto.getRoomType())
+            .exclusiveArea(dto.getExclusiveArea())
+            .floor(dto.getFloor())
+            .roomCnt(dto.getRoomCnt())
+            .bathroomCnt(dto.getBathroomCnt())
+            .direction(dto.getDirection())
+            .expirationDate(dto.getExpirationDate())
+            .availableFrom(dto.getAvailableFrom())
+            .homeType(dto.getHomeType())
+            .approvalDate(dto.getApprovalDate())
+            .resistedDate(new Date())
+            .build();
 
     homeMapper.insertSsafyHome(ssafy);
 
@@ -158,18 +189,18 @@ public class HomeService {
       List<Image> imageList = new ArrayList<>();
 
       for (MultipartFile multipartFile : multipartFiles) {
-        if(multipartFile.getOriginalFilename().equals("")) {
+        if (multipartFile.getOriginalFilename().equals("")) {
           continue;
         }
         String fileName = "/ssafy/home/" + System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
         String url = s3Util.uploadFile(multipartFile, fileName);
         imageList.add(Image.builder()
-            .homeId(ssafy.getId())
-            .url(url)
-            .build());
+                .homeId(ssafy.getId())
+                .url(url)
+                .build());
       }
 
-      if(!imageList.isEmpty()) {
+      if (!imageList.isEmpty()) {
         homeMapper.insertHomeImage(imageList);
         ssafy.setImgList(imageList);
       }
@@ -181,7 +212,7 @@ public class HomeService {
   public void deleteSsafyHome(Member member, int id) {
     Integer authorId = homeMapper.selectSsafyHome(id);
 
-    if(authorId == null) {
+    if (authorId == null) {
       throw new BadRequestException("매물 존재x");
     }
 

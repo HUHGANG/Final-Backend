@@ -14,11 +14,55 @@ public interface HomeMapper {
 
   List<HomeBCodeResDto> selectLocationList(String location);
 
-  List<Dabang> selectDabangHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int offset, int size);
+  List<Dabang> selectDabangHomeList(Long bCode,
+                                    String rentType,
+                                    Integer depositRangeMin,
+                                    Integer depositRangeMax,
+                                    Integer monthlyRentRangeMin,
+                                    Integer monthlyRentRangeMax,
+                                    Integer maintenanceCostRangeMin,
+                                    Integer maintenanceCostRangeMax,
+                                    Float exclusiveAreaRangeMin,
+                                    Float exclusiveAreaRangeMax,
+                                    String roomType,float neLat, float neLng, float swLat, float swLng, int offset, int size);
 
-  List<Ssafy> selectSsafyHomeList(Long bCode, float neLat, float neLng, float swLat, float swLng, int offset, int size);
 
-  int countTotalHome(String table, Long bCode, float neLat, float neLng, float swLat, float swLng);
+  int countTotalDabangHome( Long bCode,
+                           String rentType,
+                           Integer depositRangeMin,
+                           Integer depositRangeMax,
+                           Integer monthlyRentRangeMin,
+                           Integer monthlyRentRangeMax,
+                           Integer maintenanceCostRangeMin,
+                           Integer maintenanceCostRangeMax,
+                           Float exclusiveAreaRangeMin,
+                           Float exclusiveAreaRangeMax,
+                           String roomType, float neLat, float neLng, float swLat, float swLng);
+
+  List<Ssafy> selectSsafyHomeList(Long bCode,
+                                  String rentType,
+                                  Integer depositRangeMin,
+                                  Integer depositRangeMax,
+                                  Integer monthlyRentRangeMin,
+                                  Integer monthlyRentRangeMax,
+                                  Integer maintenanceCostRangeMin,
+                                  Integer maintenanceCostRangeMax,
+                                  Float exclusiveAreaRangeMin,
+                                  Float exclusiveAreaRangeMax,
+                                  String roomType, float neLat, float neLng, float swLat, float swLng, int offset, int size);
+
+  int countTotalSsafyHome(Long bCode,
+                          String rentType,
+                          Integer depositRangeMin,
+                          Integer depositRangeMax,
+                          Integer monthlyRentRangeMin,
+                          Integer monthlyRentRangeMax,
+                          Integer maintenanceCostRangeMin,
+                          Integer maintenanceCostRangeMax,
+                          Float exclusiveAreaRangeMin,
+                          Float exclusiveAreaRangeMax,
+                          String roomType, float neLat, float neLng, float swLat, float swLng);
+
 
   void insertSsafyHome(@Param("ssafy") Ssafy ssafy);
 
