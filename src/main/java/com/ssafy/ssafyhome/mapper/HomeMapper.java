@@ -3,7 +3,6 @@ package com.ssafy.ssafyhome.mapper;
 import com.ssafy.ssafyhome.domain.dto.HomeBCodeResDto;
 import com.ssafy.ssafyhome.domain.entity.Dabang;
 import com.ssafy.ssafyhome.domain.entity.Image;
-import com.ssafy.ssafyhome.domain.entity.Member;
 import com.ssafy.ssafyhome.domain.entity.Ssafy;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

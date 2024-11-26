@@ -1,6 +1,5 @@
 package com.ssafy.ssafyhome.domain.entity;
 
-import com.ssafy.ssafyhome.domain.enums.RentType;
 import lombok.*;
 
 import java.util.Date;

@@ -1,6 +1,5 @@
 package com.ssafy.ssafyhome.domain.dto;
 
-import com.ssafy.ssafyhome.domain.enums.RentType;
 import lombok.Getter;
 import lombok.ToString;
 
