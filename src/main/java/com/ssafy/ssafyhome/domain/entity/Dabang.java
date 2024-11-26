@@ -20,7 +20,7 @@ public class Dabang {
   private float lat;
   private float lng;
   private BCode bCode;
-  private RentType rentType;
+  private String rentType;
   private int deposit;
   private int monthlyRent;
   private String title;

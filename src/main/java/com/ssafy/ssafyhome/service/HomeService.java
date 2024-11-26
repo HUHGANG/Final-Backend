@@ -60,6 +60,7 @@ public class HomeService {
     int offset = (page - 1) * size;
 
     List<Ssafy> homeList = homeMapper.selectSsafyHomeList(bCode, neLat, neLng, swLat, swLng, offset, size);
+    System.out.println(homeList);
     int totalCnt = homeMapper.countTotalHome("ssafy", bCode, neLat, neLng, swLat, swLng);
 
     return HomeSsafyListResDto.builder()
@@ -170,6 +171,9 @@ public class HomeService {
       List<Image> imageList = new ArrayList<>();
 
       for (MultipartFile multipartFile : multipartFiles) {
+        if(multipartFile.getOriginalFilename().equals("")) {
+          continue;
+        }
         String fileName = "/ssafy/home/" + System.currentTimeMillis() + "_" + multipartFile.getOriginalFilename();
         String url = s3Util.uploadFile(multipartFile, fileName);
         imageList.add(Image.builder()
@@ -178,8 +182,10 @@ public class HomeService {
             .build());
       }
 
-      homeMapper.insertHomeImage(imageList);
-      ssafy.setImgList(imageList);
+      if(!imageList.isEmpty()) {
+        homeMapper.insertHomeImage(imageList);
+        ssafy.setImgList(imageList);
+      }
     }
 
     return ssafy;

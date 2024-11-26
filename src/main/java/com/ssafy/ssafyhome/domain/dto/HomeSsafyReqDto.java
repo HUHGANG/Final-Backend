@@ -11,7 +11,7 @@ import java.util.Date;
 public class HomeSsafyReqDto {
 
   private String address;
-  private RentType rentType;
+  private String rentType;
   private int deposit;
   private int monthlyRent;
   private int maintenanceCost;
